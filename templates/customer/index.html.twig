@@ -7,12 +7,20 @@
     {{ form_start(form) }}
 
     {{ form_row(form.name,{attr:{class:"form-control"} })}}
+    <div>
+    {{ form_row(form.firstName) }}
+</div>
 
-    {{ form_row(form.model) }}
+<div class="row">
+    {{ form_row(form.address) }}
+</div>
 
-    {{ form_row(form.description) }}
 
-    {{ form_row(form.startDate) }}
+    {{ form_row(form.email) }}
+
+    {{ form_row(form.phone) }}
+
+
     {% if action == "create" %}
         <button class="btn btn-primary" type="submit">Créer</button>
     {% elseif action == "edit" %}

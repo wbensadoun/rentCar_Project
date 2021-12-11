@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Car
 {
+    const STATE_ENABLE = 1; // Etat de la voiture sur affiché
+    const STATE_DISABLE = 0; // Etat de la voiture sur caché
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -44,9 +48,15 @@ class Car
      */
     private $rentals;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $state;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
+        $this->state =  self::STATE_ENABLE; // Met l'état sur 1 à la création
     }
 
     public function getId(): ?int
@@ -128,6 +138,18 @@ class Car
                 $rental->setCar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
