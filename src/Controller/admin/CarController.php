@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CarController extends AbstractController
 {
     /**
-     * @Route("/creer",name="create_car")
+     * @Route("/creer",name="create_car_admin")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
@@ -46,7 +46,7 @@ class CarController extends AbstractController
 
 
     /**
-     * @Route("/{id}/modifier", name="edit_car")
+     * @Route("/{id}/modifier", name="edit_car_admin")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @param Car $car//Mapping de l'objet car
@@ -74,7 +74,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/list", name="list_cars")
+     * @Route("/list", name="list_cars_admin")
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
@@ -89,7 +89,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/supprimer", name="delete_car")
+     * @Route("/{id}/supprimer", name="delete_car_admin")
      * @param EntityManagerInterface $entityManager
      * @param Car $car
      */

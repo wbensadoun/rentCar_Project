@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CustomerController extends AbstractController
 {
     /**
-     * @Route("/creer",name="create_customer")
+     * @Route("/creer",name="create_customer_admin")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
@@ -46,7 +46,7 @@ class CustomerController extends AbstractController
 
 
     /**
-     * @Route("/{id}/modifier", name="edit_customer")
+     * @Route("/{id}/modifier", name="edit_customer_admin")
      * @param Customer $customer //Mapping de l'objet customer
      * @param Request $request
      * @param EntityManagerInterface $entityManager
