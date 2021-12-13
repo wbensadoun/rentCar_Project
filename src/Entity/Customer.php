@@ -55,6 +55,7 @@ class Customer
      */
     private $user;
 
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
@@ -177,4 +178,5 @@ class Customer
 
         return $this;
     }
+
 }
