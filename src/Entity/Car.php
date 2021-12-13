@@ -53,6 +53,11 @@ class Car
      */
     private $state;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $numberPlate;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
@@ -150,6 +155,18 @@ class Car
     public function setState(int $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getNumberPlate(): ?string
+    {
+        return $this->numberPlate;
+    }
+
+    public function setNumberPlate(string $numberPlate): self
+    {
+        $this->numberPlate = $numberPlate;
 
         return $this;
     }

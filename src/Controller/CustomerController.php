@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 /**
- * @Route("/clients")
+ * @Route("/admin/clients")
  */
 class CustomerController extends AbstractController
 {
@@ -71,5 +71,35 @@ class CustomerController extends AbstractController
             "action" => "edit"
 
         ]);
+    }
+
+    /**
+     * @Route("/list", name="list_customer")
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function index(EntityManagerInterface $entityManager)
+    {
+        $customers = $entityManager->getRepository(Customer::class)->findBy(["state"=>Customer::STATE_ENABLE]);
+        //On recherche tout les customer de l'objet "Customer" dont le champ state est = à la const STATE_ENABLE
+
+        return $this->render("customer/index.html.twig",[
+            "customers" => $customers
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/supprimer", name="delete_customer")
+     * @param EntityManagerInterface $entityManager
+     * @param Customer $customer
+     */
+    public function disable(EntityManagerInterface $entityManager, Customer $customer)
+    {
+        $customer->setState(Customer::STATE_DISABLE);
+        $entityManager->persist($customer); //COMMIT
+        $entityManager->flush(); //PUSH
+        $this->addFlash('@success', "Le  client à été supprimer");
+        return $this->redirectToRoute("list_customer_admin");
+
     }
 }

@@ -23,6 +23,7 @@ class CarType extends AbstractType
 
             ])
             ->add('description')
+            ->add('numberPlate')
             ->add('startDate')
             ->add('model')
         ;

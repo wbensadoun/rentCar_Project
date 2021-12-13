@@ -99,7 +99,7 @@ class CarController extends AbstractController
         $entityManager->persist($car); //COMMIT
         $entityManager->flush(); //PUSH
         $this->addFlash('@success', "La voiture à été supprimer");
-        return $this->redirectToRoute("list_cars");
+        return $this->redirectToRoute("list_cars_admin");
 
     }
 

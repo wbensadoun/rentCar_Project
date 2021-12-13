@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Customer
 {
+
+    const STATE_ENABLE = 1; // Etat du client sur affiché
+    const STATE_DISABLE = 0; // Etat de la client sur caché
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -54,6 +59,21 @@ class Customer
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="customer", cascade={"persist", "remove"})
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $postalCode;
 
     public function __construct()
     {
@@ -174,6 +194,42 @@ class Customer
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }
