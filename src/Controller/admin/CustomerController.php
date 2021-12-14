@@ -37,7 +37,7 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute("create_customer"); // actualise la page une fois l'objet créer
         }
 
-        return $this->render("customer/index.html.twig", [
+        return $this->render("/admin/customer/index.html.twig", [
             "form" => $form->createView(),
             "action" => "create"
         ]);
@@ -66,7 +66,7 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute("edit_customer", ["id" => $customer->getId()]); // actualise la page une fois l'objet modifier
         }
 
-        return $this->render("customer/index.html.twig", [
+        return $this->render("/admin/customer/index.html.twig", [
             "form" => $form->createView(),
             "action" => "edit"
 
@@ -80,10 +80,10 @@ class CustomerController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager)
     {
-        $customers = $entityManager->getRepository(Customer::class)->findBy(["state"=>Customer::STATE_ENABLE]);
+        $customers = $entityManager->getRepository(Customer::class)->findAll();
         //On recherche tout les customer de l'objet "Customer" dont le champ state est = à la const STATE_ENABLE
 
-        return $this->render("customer/index.html.twig",[
+        return $this->render("/admin/customer/list.html.twig",[
             "customers" => $customers
         ]);
     }
@@ -95,7 +95,7 @@ class CustomerController extends AbstractController
      */
     public function disable(EntityManagerInterface $entityManager, Customer $customer)
     {
-        $customer->setState(Customer::STATE_DISABLE);
+
         $entityManager->persist($customer); //COMMIT
         $entityManager->flush(); //PUSH
         $this->addFlash('@success', "Le  client à été supprimer");

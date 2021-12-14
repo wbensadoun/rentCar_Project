@@ -8,6 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class CustomerType extends AbstractType
 {
@@ -28,6 +31,15 @@ class CustomerType extends AbstractType
             ->add('postalCode')
             ->add('email')
             ->add('phone')
+            ->add('licencePicture', FileType::class, [
+                'label' => 'Permis de conduire ',
+                'data_class' => null, //Sur un champ de type file on doit obligatoirement  avoir data_class -> null
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+            ])
             ;
           }
 
@@ -37,6 +49,8 @@ class CustomerType extends AbstractType
             'data_class' => Customer::class,
         ]);
     }
+
+
 }
 
 

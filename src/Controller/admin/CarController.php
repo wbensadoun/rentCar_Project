@@ -38,7 +38,7 @@ class CarController extends AbstractController
             return $this->redirectToRoute("create_car"); // actualise la page une fois l'objet créer
         }
 
-        return $this->render("car/index.html.twig", [
+        return $this->render("/admin/car/index.html.twig", [
             "form" => $form->createView(),
             "action" => "create"
         ]);
@@ -66,7 +66,7 @@ class CarController extends AbstractController
             return $this->redirectToRoute("edit_car",["id" => $car->getId()]); // actualise la page une fois l'objet modifier
         }
 
-        return $this->render("car/index.html.twig", [
+        return $this->render("/admin/car/index.html.twig", [
             "form" => $form->createView(),
             "action" => "edit"
 
@@ -83,7 +83,7 @@ class CarController extends AbstractController
         $cars = $entityManager->getRepository(Car::class)->findBy(["state"=>Car::STATE_ENABLE]);
         //On recherche tout les véhicules de l'objet "Car" dont le champ state est = à la const STATE_ENABLE
 
-        return $this->render("car/list.html.twig",[
+        return $this->render("/admin/car/list.html.twig",[
             "cars" => $cars
             ]);
     }

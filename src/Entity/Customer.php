@@ -13,10 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Customer
 {
 
-    const STATE_ENABLE = 1; // Etat du client sur affiché
-    const STATE_DISABLE = 0; // Etat de la client sur caché
-
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -61,11 +57,6 @@ class Customer
     private $user;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $state;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $city;
@@ -74,6 +65,16 @@ class Customer
      * @ORM\Column(type="string", length=255)
      */
     private $postalCode;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $licencePicture;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $licencePictureOrigFileName;
 
     public function __construct()
     {
@@ -198,18 +199,6 @@ class Customer
         return $this;
     }
 
-    public function getState(): ?int
-    {
-        return $this->state;
-    }
-
-    public function setState(int $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
     public function getCity(): ?string
     {
         return $this->city;
@@ -230,6 +219,30 @@ class Customer
     public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getLicencePicture()
+    {
+        return $this->licencePicture;
+    }
+
+    public function setLicencePicture($licencePicture)
+    {
+        $this->licencePicture = $licencePicture;
+
+        return $this;
+    }
+
+    public function getLicencePictureOrigFileName(): ?string
+    {
+        return $this->licencePictureOrigFileName;
+    }
+
+    public function setLicencePictureOrigFileName(string $licencePictureOrigFileName): self
+    {
+        $this->licencePictureOrigFileName = $licencePictureOrigFileName;
 
         return $this;
     }

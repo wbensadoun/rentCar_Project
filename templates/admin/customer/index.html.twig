@@ -5,13 +5,8 @@
 {% block body %}
 
     {{ form_start(form) }}
-<div class="row">
-    <div class="col-6">
-    {{ form_row(form.name) }}
-    </div>
-</div>oui merci
-    je peux t'appeler ?
 
+    {{ form_row(form.name,{attr:{class:"form-control"} })}}
     <div class="row">
     {{ form_row(form.firstName) }}
     </div>
@@ -21,15 +16,11 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
         {{ form_row(form.email) }}
-        </div>
     </div>
 
     <div class="row">
-        <div class="col-6">
         {{ form_row(form.phone) }}
-        </div>
     </div>
 
     <div class="row">
@@ -42,9 +33,8 @@
         {{ form_row(form.postalCode) }}
         </div>
     </div>
-        <div class="col-6">
-            {{ form_row(form.licencePicture) }}
-        </div>
+
+
     {% if action == "create" %}
         <button class="btn btn-primary" type="submit">Créer</button>
     {% elseif action == "edit" %}

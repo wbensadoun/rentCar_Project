@@ -58,6 +58,26 @@ class Car
      */
     private $numberPlate;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Picture2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture3;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
@@ -167,6 +187,54 @@ class Car
     public function setNumberPlate(string $numberPlate): self
     {
         $this->numberPlate = $numberPlate;
+
+        return $this;
+    }
+
+    public function getPicture1(): ?string
+    {
+        return $this->picture1;
+    }
+
+    public function setPicture1(string $picture1): self
+    {
+        $this->picture1 = $picture1;
+
+        return $this;
+    }
+
+    public function getPicture2(): ?string
+    {
+        return $this->Picture2;
+    }
+
+    public function setPicture2(?string $Picture2): self
+    {
+        $this->Picture2 = $Picture2;
+
+        return $this;
+    }
+
+    public function getPicture3(): ?string
+    {
+        return $this->picture3;
+    }
+
+    public function setPicture3(?string $picture3): self
+    {
+        $this->picture3 = $picture3;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
