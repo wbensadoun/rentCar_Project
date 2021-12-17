@@ -22,3 +22,6 @@ php bin/console doctrine:schema:update --force
 
 //CREER Un formulaire 
  php bin/console make:form
+
+//Live server
+yarn run encore dev --watch

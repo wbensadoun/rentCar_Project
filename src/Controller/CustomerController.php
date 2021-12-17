@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Form\CustomerType;
+use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -79,6 +80,18 @@ class CustomerController extends AbstractController
         $form->handleRequest($request); //Ecoute l'action faite sur le form
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if(!empty($customer->getLicencePicture())){
+                /**
+                 * @var UploadedFile $licencePicture
+                 */
+                $licencePicture = $customer->getLicencePicture(); //Récupère le fichier uploadé sous forme d'objet Uploaded file
+                $extension = $licencePicture->guessExtension(); //Récupère l'extension grâce à la méthode Uploaded File
+                $fileName = $this->giveUniqName().".".$extension; //Donne un nom unique au fichier
+                $licencePicture->move($this->getParameter('documents_directory'), $fileName); //Déplace le ficher dans le dossier de stockage
+                $customer->setLicencePictureOrigFileName($licencePicture->getClientOriginalName()); //On stocke le nom originale du fichier pour le récupérer
+                $customer->setLicencePicture($fileName); //Stocke le nom Unique du fichier
+            }
+
             $entityManager->persist($customer); //Prépare la requête  avant de l'executer;
             $entityManager->flush();
             $this->addFlash("success", "Le profil à été modifier"); //Message à envoyer une fois l'objet modfier
@@ -88,6 +101,7 @@ class CustomerController extends AbstractController
 
         return $this->render("customer/index.html.twig", [
             "form" => $form->createView(),
+            "customer" => $customer,
             "action" => "edit"
 
         ]);
@@ -121,5 +135,34 @@ class CustomerController extends AbstractController
         $this->addFlash('@success', "Le  client à été supprimer");
         return $this->redirectToRoute("list_customer_admin");
 
+    }
+    /**
+     * @Route("/licence_picture/{id}", name="get_document_customer")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param Customer $customer
+     */
+    public function getLicencePicture(EntityManagerInterface $entityManager, Request $request,Customer $customer)
+    {
+        $file= $this->getParameter("documents_directory").$customer->getLicencePicture();
+        return $this->file($file, $customer->getLicencePictureOrigFileName());
+    }
+
+    /**
+     * @Route("/enregistrement", name="customer_register")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     */
+    public function registerCustomer(EntityManagerInterface $entityManager, Request $request)
+    {
+        $customer = new Customer();
+        $form = $this->createForm(RegisterType::class, $customer);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+        }
+        return $this->render("register/form.html.twig",[
+            "form"=>$form->createView()
+        ]);
     }
 }

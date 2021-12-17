@@ -8,11 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-
-class CustomerType extends AbstractType
+class RegisterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -58,6 +55,7 @@ class CustomerType extends AbstractType
 
             ])
 
+
             ->add('phone', TextType::class, [
                 "required" => false,
                 "constraints" => new NotBlank([
@@ -66,18 +64,9 @@ class CustomerType extends AbstractType
                 "label" => "Votre numéro de téléphone"
 
             ])
-            ->add('licencePicture', FileType::class, [
-                'label' => 'Permis de conduire ',
-                'data_class' => null, //Sur un champ de type file on doit obligatoirement  avoir data_class -> null
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
-                'required' => false,
-
-            ])
             ->add("user", UserType::class)
-            ;
-          }
+        ;
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -85,8 +74,4 @@ class CustomerType extends AbstractType
             'data_class' => Customer::class,
         ]);
     }
-
-
 }
-
-

@@ -17,7 +17,10 @@ Encore
 
     .addEntry('js/app', './assets/js/app.js')
     .addStyleEntry('css/app', './assets/scss/app.scss')
-
+    //.copyFiles({
+      // from: './assets/img',
+      //  to: 'images/[path][name].[hash:8].[ext]'
+   // })
     // enables the ymfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/js.json')
 

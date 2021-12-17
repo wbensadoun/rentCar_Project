@@ -16,7 +16,29 @@
         {% endblock %}
     </head>
     <body>
+    <nav class="navbar">
+        <ul class="nav partenaire">
 
+
+            <li class="nav-item active home ">
+                <a class="nav-link" id="acceuil" href="#accueil" value="">Accueil</a>
+            </li>
+        </ul>
+
+        <form class="form-inline">
+            <input type="text" class="research" placeholder="Trouver une voiture">
+            <button type="button" class="search btn" name="rechercher"></button>
+
+            <div>
+                <div id="picker">
+                    <i class="fa-solid fa-calendar ico-size"></i>
+                    <i class="fa-solid fa-clock ico-size"></i>
+                </div>
+                <input type="hidden" id="result" value="click">
+            </div>
+        </form>
+        <p id="versionApp">Rental Car Project</p>
+    </nav>
     {% if app.request.hasPreviousSession %}
         {% for type, messages in app.session.flashbag.all() %}
             {% for message in messages %}
@@ -31,8 +53,6 @@
 
 
         {% endblock %}
-    <div class="row">
 
-    </div>
     </body>
 </html>
