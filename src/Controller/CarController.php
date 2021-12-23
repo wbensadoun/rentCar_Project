@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Form\CarType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/voitures")
+ * @IsGranted("ROLE_CUSTOMER")
  */
 class CarController extends AbstractController
 {
@@ -31,6 +33,7 @@ class CarController extends AbstractController
         $form->handleRequest($request); //Ecoute l'action faite sur le form
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $car->setCustomer($this->getUser()->getCustomer());
             $entityManager->persist($car); //Prépare la requête  avant de l'executer;
             $entityManager->flush();
             $this->addFlash("success", "La voiture à été ajouté"); //Message à envoyer une fois l'objet créer

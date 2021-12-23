@@ -40,12 +40,12 @@ class CarType extends AbstractType
 
             ])
             ->add('startDate')
-            ->add('description', TextType::class,[
+            ->add('model', TextType::class,[
                 "required" => false,
                 "constraints" => new NotBlank([
                     "message" => "Choisissez un modèle"
                 ]),
-                "label" => "Description"
+                "label" => "modèle"
 
             ])
             ->add('price', TextType::class,[

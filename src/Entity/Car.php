@@ -78,6 +78,12 @@ class Car
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="cars")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
@@ -235,6 +241,18 @@ class Car
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
 
         return $this;
     }

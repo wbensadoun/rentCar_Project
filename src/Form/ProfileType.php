@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegisterType extends AbstractType
+class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -64,7 +64,7 @@ class RegisterType extends AbstractType
                 "label" => "Votre numéro de téléphone"
 
             ])
-            ->add("user", UserType::class,["action"=>"register"])
+            ->add("user", UserType::class,["action"=>"profile"])
         ;
     }
 
