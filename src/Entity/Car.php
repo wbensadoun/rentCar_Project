@@ -84,10 +84,16 @@ class Car
      */
     private $customer;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="Car")
+     */
+    private $adverts;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
         $this->state =  self::STATE_ENABLE; // Met l'état sur 1 à la création
+        $this->adverts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,6 +259,36 @@ class Car
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Advert[]
+     */
+    public function getAdverts(): Collection
+    {
+        return $this->adverts;
+    }
+
+    public function addAdvert(Advert $advert): self
+    {
+        if (!$this->adverts->contains($advert)) {
+            $this->adverts[] = $advert;
+            $advert->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvert(Advert $advert): self
+    {
+        if ($this->adverts->removeElement($advert)) {
+            // set the owning side to null (unless already changed)
+            if ($advert->getCar() === $this) {
+                $advert->setCar(null);
+            }
+        }
 
         return $this;
     }
