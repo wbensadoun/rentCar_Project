@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
     <body>
-
+ <div class="container-fluid">
     <nav class="navbar">
         <ul class="nav partenaire">
 
@@ -50,6 +50,7 @@
         </form>
         <p id="versionApp">Rental Car Project</p>
     </nav>
+    
     {% if app.request.hasPreviousSession %}
         {% for type, messages in app.session.flashbag.all() %}
             {% for message in messages %}
@@ -59,13 +60,17 @@
             {% endfor %}
         {% endfor %}
     {% endif %}
-
+   
         {% block body %}
 
 
         {% endblock %}
-    <div class="row">
-    <a class="btn btn-danger" href="{{ path('app_logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Déconnexion </a>
+   
+        <div class="row">
+            {% if is_granted("ROLE_USER") %}
+                     <a class="btn btn-danger" href="{{ path('app_logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Déconnexion </a>
+            {% endif %}
+        </div>
     </div>
     </body>
 </html>

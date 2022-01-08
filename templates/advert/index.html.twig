@@ -1,39 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des voitures{% endblock %}
+{% block title %}Liste des voitures
+{% endblock %}
 
 {% block body %}
 
-   <table class="table">
-     <thead>
+	<table class="table">
+		<thead>
 
-       <tr>
-            <th>Titre</th>
-            <th>photo</th>
-            <th>Utilisateur</th>
-       </tr>
-     </thead>
-     <tbody>
-          {% for advert in adverts %}
-              <tr>
-                <td>{{  advert.titre }}</td>
-                <td>{{  car.pictures1 }}</td>
-                <td>
-                    <a class=" btn btn-success " href="{{ path("edit_advert", {id:advert.id}) }}"><i class="fas fa-edit">     Modifier</i></a>
-                    <a class=" btn btn-danger " href="{{ path("delete_advert", {id:advert.id}) }}" onclick="return window.confirm('Voulez vous vraiment supprimer ?')"><i class="fas fa-times">   Supprimer</i></a>
-                </td>
-              </tr>
+			<tr>
+				<th>Titre</th>
 
-          {% endfor %}
-     </tbody>
+			</tr>
+		</thead>
+		<tbody>
+			{% for advert in adverts %}
+				<tr>
+					<td>{{  advert.titre }}</td>
+
+					<td>
+						<a class=" btn btn-success " href="{{ path("edit_advert", {id:advert.id}) }}">
+							<i class="fas fa-edit">
+								Modifier</i>
+						</a>
+						<a class=" btn btn-danger " href="{{ path("delete_advert", {id:advert.id}) }}" onclick="return window.confirm('Voulez vous vraiment supprimer ?')">
+							<i class="fas fa-times">
+								Supprimer</i>
+						</a>
+					</td>
+				</tr>
+
+			{% endfor %}
+		</tbody>
 
 
-
-
-   </table>
-    <div class="row">
-        <div class="col-offset-4 col-6">
-        <a class="btn btn-success" href="{{ path('create_advert') }}">Rajouter une annonce</a>
-        </div>
-    </div>
+	</table>
+	<div class="row">
+		<div class="col-offset-4 col-6">
+			<a class="btn btn-success" href="{{ path('create_advert') }}">Rajouter une annonce</a>
+		</div>
+	</div>
 {% endblock %}

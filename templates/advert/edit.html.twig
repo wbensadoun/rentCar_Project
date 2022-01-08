@@ -12,28 +12,24 @@
     <div class="form-group">
     {{ form_start(form) }}
 
-                <div class="row">
-                    {{ form_row(form.name,{attr:{class:"form-control"} }) }}
-                </div>
+        	<div class="row">
+					<div class="col-offset-6 col-6">
+                    		{{ form_row(form.titre) }}
+					</div>
 
-                <div class="row">
-                    {{ form_row(form.model,{attr:{class:"form-control"} }) }}
-                </div>
-                <div class="row">
-                    {{ form_row(form.titre) }}
-                </div>
+               		<div class="col-offset-4 col-8">
+                    		{{ form_row(form.description) }}
+           			</div>
 
-                <div class="row">
-                    {{ form_row(form.description) }}
-                </div>
-
-               <div class="row">
-                    {{ form_row(form.prix) }}
-                </div>
+					<div class="col-offset-6 col-6">
+							{{form_row(form.car) }}
+					</div>
+					
+              		<div class="col-offset-6 col-6">
+                    		{{ form_row(form.prix) }}
+                	</div>
+            </div>   
                
-                <div class="row">
-                    {{ form_row(form.car) }}
-                </div>
     {% if action == "create" %}
         <button class="btn btn-primary" type="submit">Créer</button>
     {% elseif action == "edit" %}

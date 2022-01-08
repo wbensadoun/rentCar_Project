@@ -27,7 +27,6 @@ class AdvertController extends AbstractController
         $form = $this->createForm(AdvertType::class, $advert);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$advert->setCar($this->getModele()->getCar());
             $entityManager->persist($advert);
             $entityManager->flush();
             $this->addFlash("success", "L'annonce à été ajouté"); //Message à envoyer une fois l'objet créer
@@ -35,7 +34,7 @@ class AdvertController extends AbstractController
 
         }
 
-        return $this->render("advert/index.html.twig", [
+        return $this->render("advert/edit.html.twig", [
             "form" => $form->createView(),
             "action" => "create"
         ]);

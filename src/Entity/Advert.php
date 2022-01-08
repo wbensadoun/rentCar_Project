@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\AdvertRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AdvertRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Advert
 {
+    const STATE_ENABLE = 1; // Etat de la voiture sur affiché
+    const STATE_DISABLE = 0; // Etat de la voiture sur caché
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -37,6 +42,36 @@ class Advert
      * @ORM\Column(type="float")
      */
     private $prix;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createDate;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedDate;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $state;
+    public function __construct()
+    {
+        $this->state = self::STATE_ENABLE;
+    }
+    public function onPrePersist()
+    {
+        $this->createDate = new DateTime("now");
+        $this->updatedDate = new DateTime("now");
+    }
+
+    public function onUpdatePersist()
+    {
+        $this->updatedDate = new DateTime("now");
+    }
+
 
     public function getId(): ?int
     {
@@ -87,6 +122,42 @@ class Advert
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getCreateDate(): ?\DateTimeInterface
+    {
+        return $this->createDate;
+    }
+
+    public function setCreateDate(\DateTimeInterface $createDate): self
+    {
+        $this->createDate = $createDate;
+
+        return $this;
+    }
+
+    public function getUpdatedDate(): ?\DateTimeInterface
+    {
+        return $this->updatedDate;
+    }
+
+    public function setUpdatedDate(\DateTimeInterface $updatedDate): self
+    {
+        $this->updatedDate = $updatedDate;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
