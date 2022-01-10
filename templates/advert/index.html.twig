@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des voitures
+{% block title %}Liste des annonces
 {% endblock %}
 
 {% block body %}
@@ -10,14 +10,18 @@
 
 			<tr>
 				<th>Titre</th>
-
+				<th>Photo</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for advert in adverts %}
 				<tr>
 					<td>{{  advert.titre }}</td>
-
+					<td>
+					{% if advert.car.picture1 is not empty %}
+					<img src="{{ asset(images_directory~advert.car.picture1) }}" width="100"/>
+					{% endif %}
+					</td>
 					<td>
 						<a class=" btn btn-success " href="{{ path("edit_advert", {id:advert.id}) }}">
 							<i class="fas fa-edit">

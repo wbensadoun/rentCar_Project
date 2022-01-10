@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/annonces")
+ * @Route("/extranet/annonces")
  */
 class AdvertController extends AbstractController
 {
@@ -76,7 +76,7 @@ class AdvertController extends AbstractController
         $adverts = $entityManager->getRepository(Advert::class)->findBy(["state" => Advert::STATE_ENABLE]);
         //On recherche tout les véhicules de l'objet "advert" dont le champ state est = à la const STATE_ENABLE
 
-        return $this->render("advert/list.html.twig", [
+        return $this->render("advert/index.html.twig", [
             "adverts" => $adverts
         ]);
     }

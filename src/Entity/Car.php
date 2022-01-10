@@ -89,6 +89,11 @@ class Car
      */
     private $adverts;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture1_origFileName;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
@@ -203,36 +208,36 @@ class Car
         return $this;
     }
 
-    public function getPicture1(): ?string
+    public function getPicture1()
     {
         return $this->picture1;
     }
 
-    public function setPicture1(string $picture1): self
+    public function setPicture1($picture1): self
     {
         $this->picture1 = $picture1;
 
         return $this;
     }
 
-    public function getPicture2(): ?string
+    public function getPicture2()
     {
         return $this->Picture2;
     }
 
-    public function setPicture2(?string $Picture2): self
+    public function setPicture2($Picture2): self
     {
         $this->Picture2 = $Picture2;
 
         return $this;
     }
 
-    public function getPicture3(): ?string
+    public function getPicture3()
     {
         return $this->picture3;
     }
 
-    public function setPicture3(?string $picture3): self
+    public function setPicture3($picture3): self
     {
         $this->picture3 = $picture3;
 
@@ -289,6 +294,18 @@ class Car
                 $advert->setCar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture1OrigFileName(): ?string
+    {
+        return $this->picture1_origFileName;
+    }
+
+    public function setPicture1OrigFileName(string $picture1_origFileName): self
+    {
+        $this->picture1_origFileName = $picture1_origFileName;
 
         return $this;
     }

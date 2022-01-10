@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/voitures")
+ * @Route("/extranet/voitures")
  * @IsGranted("ROLE_CUSTOMER")
  */
 class CarController extends AbstractController
@@ -33,6 +33,17 @@ class CarController extends AbstractController
         $form->handleRequest($request); //Ecoute l'action faite sur le form
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if( !empty($car->getPicture1()) ){
+                /**
+                 * @var UploadedFile $picture1
+                 */
+                $picture1 = $car->getPicture1();
+                $extension = $picture1->guessExtension();
+                $fileName = $this->giveUniqName(). "." .$extension;
+                $picture1->move($this->getParameter("images_directory"),$fileName);
+                $car->setPicture1($fileName);
+                $car->setPicture1OrigFileName($picture1->getClientOriginalName());
+            }
             $car->setCustomer($this->getUser()->getCustomer());
             $entityManager->persist($car); //Prépare la requête  avant de l'executer;
             $entityManager->flush();
@@ -104,6 +115,14 @@ class CarController extends AbstractController
         $this->addFlash('@success', "La voiture à été supprimer");
         return $this->redirectToRoute("list_cars");
 
+    }
+
+    /**
+     * @return string
+     */
+    private function giveUniqName(): string
+    {
+        return md5(uniqid()); //ça permet de créer un nom unique
     }
 
 }

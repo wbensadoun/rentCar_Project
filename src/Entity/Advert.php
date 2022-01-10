@@ -61,13 +61,18 @@ class Advert
     {
         $this->state = self::STATE_ENABLE;
     }
+    /**
+     * @ORM\PrePersist
+     */
     public function onPrePersist()
     {
         $this->createDate = new DateTime("now");
         $this->updatedDate = new DateTime("now");
     }
-
-    public function onUpdatePersist()
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
     {
         $this->updatedDate = new DateTime("now");
     }

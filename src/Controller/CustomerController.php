@@ -50,7 +50,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="customer_profiler")
+     * @Route("/extranet/profil", name="customer_profiler")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasherInterface
