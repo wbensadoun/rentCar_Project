@@ -60,7 +60,7 @@ class AdvertController extends AbstractController
             return $this->redirectToRoute("edit_advert", ["id" => $advert->getId()]); // actualise la page une fois l'objet modifier
         }
 
-        return $this->render("advert/index.html.twig", [
+        return $this->render("advert/edit.html.twig", [
             "form" => $form->createView(),
             "action" => "edit"
 
