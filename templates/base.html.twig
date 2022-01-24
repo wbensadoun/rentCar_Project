@@ -22,18 +22,22 @@
 
 
             <li class="nav-item active home ">
-                <a class="nav-link" id="acceuil" href="#accueil" value="">Accueil</a>
+                <a class="nav-link" id="acceuil" href="{{path('default')}}" value="">Accueil</a>
             </li>
 
             <li class="nav-item active home ">
-                <a class="nav-link" id="inscription" href="#accueil" value="">Inscription</a>
+                <a class="nav-link" id="register" href="{{path('customer_register')}}" value="">Inscription</a>
             </li>
 
             <li class="nav-item active home ">
-                <a class="nav-link" id="connexion" href="#accueil" value="">Connexion</a>
+                <a class="nav-link" id="login" href="{{path('app_login')}}" value="">Connexion</a>
             </li>
-
-
+            <li class="nav-item active home">
+                <a class="nav-link" id="addCar" href="{{path('create_car')}}" >Ajouter une voiture</a>
+            </li>
+            <li class="nav-item active home ">
+                <a class="nav-link" id="addAdvert" href="{{path('create_advert')}}" value="">Créer une annonce</a>
+            </li>
         </ul>
 
         <form class="form-inline">

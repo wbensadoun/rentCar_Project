@@ -54,12 +54,26 @@ class CustomerController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasherInterface
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
+
     public function profileCustomer(EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $userPasswordHasherInterface){
         $customer = $this->getUser()->getCustomer();
         $form = $this->createForm(ProfileType::class, $customer);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            if(!empty($customer->getLicencePicture())){
+                /**
+                 * @var UploadedFile $licencePicture
+                 */
+                $licencePicture = $customer->getLicencePicture(); //Récupère le fichier uploadé sous forme d'objet Uploaded file
+                $extension = $licencePicture->guessExtension(); //Récupère l'extension grâce à la méthode Uploaded File
+                $fileName = $this->giveUniqName().".".$extension; //Donne un nom unique au fichier
+                $licencePicture->move($this->getParameter('documents_directory'), $fileName); //Déplace le ficher dans le dossier de stockage
+                $customer->setLicencePictureOrigFileName($licencePicture->getClientOriginalName()); //On stocke le nom originale du fichier pour le récupérer
+                $customer->setLicencePicture($fileName); //Stocke le nom Unique du fichier
+            }
+
             $password = $form->get("user")->get("confirmPassword")->getData();
 
             if($password !==null){

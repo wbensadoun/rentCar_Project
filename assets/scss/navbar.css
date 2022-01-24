@@ -133,13 +133,8 @@ nav{
 .navbar{
     margin-left: 0px;
 }
-#connexion{
-    margin-left: 70px;
-    margin-top: 50px;
-    display: inline-flex;
-}
-#inscription{
-    border-color: #84B717;
+#login{
+    border-color: #ff8585;
     display: block;
     border-right: medium none;
     height: 20px;
@@ -147,11 +142,23 @@ nav{
     text-align: center;
     color: #fff;
     border-radius: 17px;
-    background: #84B717;
+    background: #ff8585;
+    margin-top: 50px;
+}
+#register{
+    border-color: #ff8585;
+    display: block;
+    border-right: medium none;
+    height: 20px;
+    padding: 3px 15px 30px 15px;
+    text-align: center;
+    color: #fff;
+    border-radius: 17px;
+    background: #ff8585;
     margin-top: 50px;
 }
 #acceuil{
-    border-color: #592985;
+    border-color: #ff8585;
     display: block;
     border-right: medium none;
     height: 20px;
@@ -159,6 +166,30 @@ nav{
     text-align: center;
     color: #fff;
     border-radius: 17px;
-    background: #592985;
+    background: #ff8585;
+    margin-top: 50px;
+}
+#addAdvert{
+    border-color: #ff8585;
+    display: block;
+    border-right: medium none;
+    height: 20px;
+    padding: 3px 15px 30px 15px;
+    text-align: center;
+    color: #fff;
+    border-radius: 17px;
+    background: #ff8585;
+    margin-top: 50px;
+}
+#addCar{
+    border-color: #ff8585;
+    display: block;
+    border-right: medium none;
+    height: 20px;
+    padding: 3px 15px 30px 15px;
+    text-align: center;
+    color: #fff;
+    border-radius: 17px;
+    background: #ff8585;
     margin-top: 50px;
 }

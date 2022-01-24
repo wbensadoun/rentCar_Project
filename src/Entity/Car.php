@@ -74,11 +74,6 @@ class Car
     private $picture3;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="cars")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -93,6 +88,16 @@ class Car
      * @ORM\Column(type="string", length=255)
      */
     private $picture1_origFileName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture2_origFileName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture3_origFileName;
 
     public function __construct()
     {
@@ -244,18 +249,6 @@ class Car
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function getCustomer(): ?Customer
     {
         return $this->customer;
@@ -306,6 +299,30 @@ class Car
     public function setPicture1OrigFileName(string $picture1_origFileName): self
     {
         $this->picture1_origFileName = $picture1_origFileName;
+
+        return $this;
+    }
+
+    public function getPicture2OrigFileName(): ?string
+    {
+        return $this->picture2_origFileName;
+    }
+
+    public function setPicture2OrigFileName(?string $picture2_origFileName): self
+    {
+        $this->picture2_origFileName = $picture2_origFileName;
+
+        return $this;
+    }
+
+    public function getPicture3OrigFileName(): ?string
+    {
+        return $this->picture3_origFileName;
+    }
+
+    public function setPicture3OrigFileName(string $picture3_origFileName): self
+    {
+        $this->picture3_origFileName = $picture3_origFileName;
 
         return $this;
     }

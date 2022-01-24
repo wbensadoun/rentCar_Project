@@ -44,6 +44,28 @@ class CarController extends AbstractController
                 $car->setPicture1($fileName);
                 $car->setPicture1OrigFileName($picture1->getClientOriginalName());
             }
+            if( !empty($car->getPicture2()) ){
+                /**
+                 * @var UploadedFile $picture2
+                 */
+                $picture2 = $car->getPicture2();
+                $extension = $picture2->guessExtension();
+                $fileName = $this->giveUniqName(). "." .$extension;
+                $picture2->move($this->getParameter("images_directory"),$fileName);
+                $car->setPicture2($fileName);
+                $car->setPicture2OrigFileName($picture2->getClientOriginalName());
+            }
+            if( !empty($car->getPicture3()) ){
+                /**
+                 * @var UploadedFile $picture3
+                 */
+                $picture3 = $car->getPicture3();
+                $extension = $picture3->guessExtension();
+                $fileName = $this->giveUniqName(). "." .$extension;
+                $picture3->move($this->getParameter("images_directory"),$fileName);
+                $car->setPicture3($fileName);
+                $car->setPicture3OrigFileName($picture3->getClientOriginalName());
+            }
             $car->setCustomer($this->getUser()->getCustomer());
             $entityManager->persist($car); //Prépare la requête  avant de l'executer;
             $entityManager->flush();
