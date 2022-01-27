@@ -48,14 +48,7 @@ class CarType extends AbstractType
                 "label" => "modèle"
 
             ])
-            ->add('price', TextType::class,[
-                "required" => false,
-                "constraints" => new NotBlank([
-                    "message" => "Mettre un prix"
-                ]),
-                "label" => "Prix de la voiture par jour"
 
-            ])
             ->add('picture1', FileType::class, [
                 'label' => 'Photo 1',
                 'data_class' => null, //Sur un champ de type file on doit obligatoirement  avoir data_class -> null

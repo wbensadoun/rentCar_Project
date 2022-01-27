@@ -91,10 +91,23 @@ class CarController extends AbstractController
     public function edit(Request $request, EntityManagerInterface $entityManager, Car $car)//Injection de dépendance
     {
         $form = $this->createForm(CarType::class, $car);
-
+        $initialPicture1 = $car->getPicture1();
         $form->handleRequest($request); //Ecoute l'action faite sur le form
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if( !empty($car->getPicture1()) ){
+                /**
+                 * @var UploadedFile $picture1
+                 */
+                $picture1 = $car->getPicture1();
+                $extension = $picture1->guessExtension();
+                $fileName = $this->giveUniqName(). "." .$extension;
+                $picture1->move($this->getParameter("images_directory"),$fileName);
+                $car->setPicture1($fileName);
+                $car->setPicture1OrigFileName($picture1->getClientOriginalName());
+            }else{
+                $car->setPicture1($initialPicture1);
+            }
             $entityManager->persist($car); //Prépare la requête  avant de l'executer;
             $entityManager->flush();
             $this->addFlash("success", "La voiture à été modifier"); //Message à envoyer une fois l'objet modfier
