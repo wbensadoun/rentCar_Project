@@ -41,16 +41,27 @@
         {{ form_row(form.postalCode) }}
         </div>
     </div>
-<div class="row">
+    <div class="row">
         <div class="col-6">
-            {{ form_row(form.licencePicture) }}
+            {{ form_row(form.photoProfile) }}
         </div>
-    <div class="col-6">
-        {% if customer.licencePicture is not empty %}
-            <a href="{{ path('get_document_customer',{ id:customer.id }) }}">{{ customer.licencePictureOrigFileName }}</a>
-        {% endif %}
+        <div class="col-6">
+            {% if customer.photoProfile is not empty %}
+                <a href="{{ path('get_document_customer',{ id:customer.id }) }}">{{ customer.photoProfileOrigFileName }}</a>
+            {% endif %}
+        </div>
     </div>
-</div>
+
+    <div class="row">
+            <div class="col-6">
+                {{ form_row(form.licencePicture) }}
+            </div>
+        <div class="col-6">
+            {% if customer.licencePicture is not empty %}
+                <a href="{{ path('get_document_customer',{ id:customer.id }) }}">{{ customer.licencePictureOrigFileName }}</a>
+            {% endif %}
+        </div>
+    </div>
     {% if action == "create" %}
         <button class="btn btn-primary" type="submit">Créer</button>
     {% elseif action == "edit" %}

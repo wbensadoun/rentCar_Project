@@ -76,6 +76,11 @@ class Customer
      */
     private $cars;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $PhotoProfile;
+
     public function __construct()
     {
         $this->rentals = new ArrayCollection();
@@ -261,6 +266,18 @@ class Customer
                 $car->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhotoProfile(): ?string
+    {
+        return $this->PhotoProfile;
+    }
+
+    public function setPhotoProfile(?string $PhotoProfile): self
+    {
+        $this->PhotoProfile = $PhotoProfile;
 
         return $this;
     }

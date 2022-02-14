@@ -14,7 +14,7 @@ class Car
 {
     const STATE_ENABLE = 1; // Etat de la voiture sur affiché
     const STATE_DISABLE = 0; // Etat de la voiture sur caché
-
+    const STATE_RENTALE = 2; // Voiture louer ou non
 
     /**
      * @ORM\Id

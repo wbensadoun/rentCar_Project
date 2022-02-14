@@ -25,3 +25,7 @@ php bin/console doctrine:schema:update --force
 
 //Live server
 yarn run encore dev --watch
+
+//appliquer les fixtures
+php bin/console d:f:l
+

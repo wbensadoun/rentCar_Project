@@ -75,6 +75,15 @@ class CustomerType extends AbstractType
                 'required' => false,
 
             ])
+            ->add('photoProfile', FileType::class, [
+                'label' => 'Photo de profile',
+                'data_class' => null, //Sur un champ de type file on doit obligatoirement  avoir data_class -> null
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+            ])
             ->add("user", UserType::class)
             ;
           }

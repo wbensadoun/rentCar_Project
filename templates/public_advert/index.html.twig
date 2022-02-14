@@ -15,8 +15,8 @@
 					                {% endif %}
                             </div>
 
-                            <div class="col-8">
-                               <h2> {{public_advert.titre}}</h2>
+                            <div class="col-8" id="">
+                               <h2> <a href="{{ path('public_detail',{id:public_advert.id}) }}"> {{public_advert.titre}} </a></h2>
                                <p> {{public_advert.description | raw}} </p>
                                <p> {{ public_advert.createDate | date("d/m/Y") }} </p>
                             </div>

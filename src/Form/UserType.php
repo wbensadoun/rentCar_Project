@@ -28,7 +28,7 @@ class UserType extends AbstractType
 
             ->add('userName', TextType::class, [
                 "required"=>true,
-                "label"=>'entrez un pseudo'
+               
             ])
         ;
         if($action=="profile"){
@@ -36,10 +36,16 @@ class UserType extends AbstractType
                 "required"=>false,
                 "mapped"=>false,
                 "first_options"=>[
-                    "label"=>"Mot de passe"
+                    
+                    "attr"=>[
+                        "placeholder"=>"Mot de passe"
+                    ]
                 ],
                 "second_options"=>[
-                    "label"=>"Confirmez le mot de passe"
+                   
+                    "attr"=>[
+                        "placeholder"=>"Confirmez le mot de passe"
+                    ]
                 ],
                 "invalid_message"=>"Les mots de passe ne correspondent pas",
                 "type"=>PasswordType::class

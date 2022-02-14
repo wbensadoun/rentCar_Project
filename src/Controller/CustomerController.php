@@ -16,7 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/clients")
- * @IsGranted("ROLE_CUSTOMER")
+ *
  */
 class CustomerController extends AbstractController
 {
@@ -50,7 +50,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/extranet/profil", name="customer_profiler")
+     * @Route("/extranet/edit", name="customer_profiler")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasherInterface
@@ -72,6 +72,18 @@ class CustomerController extends AbstractController
                 $licencePicture->move($this->getParameter('documents_directory'), $fileName); //Déplace le ficher dans le dossier de stockage
                 $customer->setLicencePictureOrigFileName($licencePicture->getClientOriginalName()); //On stocke le nom originale du fichier pour le récupérer
                 $customer->setLicencePicture($fileName); //Stocke le nom Unique du fichier
+            }
+
+            if(!empty($customer->getPhotoProfile())){
+                /**
+                 * @var UploadedFile $photoProfile
+                 */
+                $photoProfile = $customer->getPhotoProfile();
+                $extension = $photoProfile->guessExtension();
+                $fileName = $this->giveUniqName().".".$extension;
+                $photoProfile->move($this->getParameter('documents_directory'), $fileName);
+                $customer->setLicencePictureOrigFileName($photoProfile->getClientOriginalName());
+                $customer->setPhotoProfile($fileName);
             }
 
             $password = $form->get("user")->get("confirmPassword")->getData();

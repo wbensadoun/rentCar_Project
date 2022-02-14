@@ -19,6 +19,29 @@ class AdvertRepository extends ServiceEntityRepository
         parent::__construct($registry, Advert::class);
     }
 
+    public function findByLastAdverts(int $nbAdvert = 3)
+    {
+        return $this->createQueryBuilder("a")
+            ->orderBy('a.createDate', 'DESC')
+            ->setMaxResults($nbAdvert)
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+
+    public function findByKeyWord(string $keyWord)
+    {
+        return $this->createQueryBuilder("a")
+            ->innerJoin("a.Car","car")
+            ->where('a.titre LIKE :keyWord')
+            ->orWhere("car.model LIKE :keyWord")
+            ->setParameter(":keyWord", "%".$keyWord."%")
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Advert[] Returns an array of Advert objects
     //  */

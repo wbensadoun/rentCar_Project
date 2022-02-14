@@ -16,21 +16,44 @@
         {% endblock %}
     </head>
     <body>
-    <nav class="navbar">
-        <ul class="nav partenaire">
+    <nav class="navbar menu">
+        <ul class="nav partenaire mx-auto">
 
 
             <li class="nav-item active home ">
                 <a class="nav-link" id="acceuil" href="{{path('default')}}" value="">Accueil</a>
             </li>
+            {# SI CONNECTER NE PAS AFFICHER #}
+            {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+                <li class="nav-item active home ">
+                    <a class="nav-link" id="register" href="{{path('customer_register')}}" value="">Inscription</a>
+                </li>
+
+                {# SI CONNECTER NE PAS AFFICHER #}
+                <li class="nav-item active home ">
+                    <a class="nav-link" id="login" href="{{path('app_login')}}" value="">Connexion</a>
+                </li>
+            {% endif %}
+
+            {#SI NON CONNECTER NE PAS AFFICHER#}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                <li class="nav-item active home">
+                    <a class="nav-link" id="addCar" href="{{path('create_car')}}" >Ajouter une voiture</a>
+                </li>
+                {#SI NON CONNECTER NE PAS AFFICHER#}
+                <li class="nav-item active home ">
+                    <a class="nav-link" id="addAdvert" href="{{path('create_advert')}}" value="">Créer une annonce</a>
+                </li>
+            {% endif %}
         </ul>
 
-        <form class="form-inline">
-            <input type="text" class="research" placeholder="Trouver une voiture">
-            <button type="button" class="search btn" name="rechercher"></button>
+        <form action="{{ path('public_search') }}" class="form-inline mx-auto">
+            <input type="text" class="research"  required name="search" placeholder="Trouver une voiture"/>
+
+            <button type="submit" class="search btn">BUTTON</button>
 
         </form>
-        <p id="versionApp">Rental Car Project</p>
+        <p id="versionApp"> Rental Car Project</p>
     </nav>
     {% if app.request.hasPreviousSession %}
         {% for type, messages in app.session.flashbag.all() %}
@@ -48,4 +71,24 @@
         {% endblock %}
 
     </body>
+    <footer>
+        <div class="container-fluid ">
+            <nav class="navbar foot">
+                <ul class="nav partenaire mx-auto">
+
+                    <li class="nav-item active home ">
+                        <a class="nav-link" id="societe" href="{{path('default')}}" value="">Société</a>
+                    </li>
+
+                    <li class="nav-item active home ">
+                        <a class="nav-link" id="faq" href="{{path('default')}}" value="">FAQ</a>
+                    </li>
+
+                    <li class="nav-item active home ">
+                        <a class="nav-link" id="mentions" href="{{path('default')}}" value="">Mentions légales</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
 </html>

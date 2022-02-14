@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Car;
+use App\Entity\Rental;
 use App\Form\CarType;
 use Doctrine\ORM\EntityManagerInterface;
+use mysql_xdevapi\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,6 +95,9 @@ class CarController extends AbstractController
     {
         $form = $this->createForm(CarType::class, $car);
         $initialPicture1 = $car->getPicture1();
+        $initialPicture2 = $car->getPicture2();
+        $initialPicture3 = $car->getPicture3();
+
         $form->handleRequest($request); //Ecoute l'action faite sur le form
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,8 +111,40 @@ class CarController extends AbstractController
                 $picture1->move($this->getParameter("images_directory"),$fileName);
                 $car->setPicture1($fileName);
                 $car->setPicture1OrigFileName($picture1->getClientOriginalName());
+                $fileSysteme = new Filesystem();
+                $fileSysteme->remove($this->getParameter("images_directory").$initialPicture1);
             }else{
                 $car->setPicture1($initialPicture1);
+            }
+            if( !empty($car->getPicture2()) ){
+                /**
+                 * @var UploadedFile $picture2
+                 */
+                $picture2 = $car->getPicture2();
+                $extension = $picture2->guessExtension();
+                $fileName = $this->giveUniqName(). "." .$extension;
+                $picture2->move($this->getParameter("images_directory"),$fileName);
+                $car->setPicture2($fileName);
+                $car->setPicture2OrigFileName($picture2->getClientOriginalName());
+                $fileSysteme = new Filesystem();
+                $fileSysteme->remove($this->getParameter("images_directory").$initialPicture2);
+            }else{
+                $car->setPicture2($initialPicture2);
+            }
+            if( !empty($car->getPicture3()) ){
+                /**
+                 * @var UploadedFile $picture3
+                 */
+                $picture3 = $car->getPicture3();
+                $extension = $picture3->guessExtension();
+                $fileName = $this->giveUniqName(). "." .$extension;
+                $picture3->move($this->getParameter("images_directory"),$fileName);
+                $car->setPicture3($fileName);
+                $car->setPicture3OrigFileName($picture3->getClientOriginalName());
+                $fileSysteme = new Filesystem();
+                $fileSysteme->remove($this->getParameter("images_directory").$initialPicture3);
+            }else{
+                $car->setPicture3($initialPicture3);
             }
             $entityManager->persist($car); //Prépare la requête  avant de l'executer;
             $entityManager->flush();
@@ -160,4 +198,23 @@ class CarController extends AbstractController
         return md5(uniqid()); //ça permet de créer un nom unique
     }
 
+    /**
+     * @Route("/{id}/location", name="rental_car")
+     */
+    public function rentalCar(EntityManagerInterface $entityManager, Car $car)
+    {
+        $rental = new Rental();
+        $rental->setCar($car);
+        $rental->setStartDate(new \DateTime("now"));
+        $rental->setCustomer($this->getUser()->getCustomer());
+        try{
+            $entityManager->persist($rental);
+        }catch (Exception $e){
+            $this->addFlash("danger", "Une erreur est arrivé, veuillez recommencer ".$e->getMessage());
+            return $this->redirectToRoute("default");
+        }
+        $car->setState(Car::STATE_RENTALE);
+        $entityManager->persist($car);
+        $entityManager->flush();
+    }
 }

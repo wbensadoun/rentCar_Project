@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PublicAdvertController!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-9">
+            <div class="row mt-5">
+                        <img src="{{asset(images_directory~advert.car.picture1)}}"  width="300" alt="...">
+
+                {% if advert.car.picture2 is not empty %}
+                        <img src="{{asset(images_directory~advert.car.picture2)}}"   width="300" alt="...">
+                {% else %}
+                    <img src="{{asset(images_directory~"noImage.jpg")}}"  width="200" alt="...">
+                {% endif %}
+
+                {%  if advert.car.picture3 is not empty %}
+                        <img src="{{asset(images_directory~advert.car.picture3)}}"  width="300" alt="...">
+                    {% else %}
+                        <img src="{{asset(images_directory~"noImage.jpg")}}"  width="200" alt="...">
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col-6 offset-3 ">
+                   <h2>
+                       {{ advert.titre }}
+                   </h2>
+                    {{ advert.description | raw }}
+                    <div class="badge badge-info">
+                        {{ advert.prix }} €
+                    </div>
+                        <div class="row">
+                            <a href="#" class="nav-link">LOUER</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <h1> PROFIL DU LOUEUR </h1>
+                    <img src="{{asset(images_directory~advert.car.customer.photoProfile)}}" width="300">
+                    <p>{{ advert.car.customer.firstName }}</p>
+                    <p>{{ advert.car.customer.name }}</p>
+                    <p>{{ advert.car.customer.phone }}</p>
+                    <p> {{ advert.car.customer.user.email }}</p>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}

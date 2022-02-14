@@ -19,7 +19,11 @@ class RegisterType extends AbstractType
                 "constraints" => new NotBlank([
                     "message" => "Mettre un nom"
                 ]),
-                "label" => "Votre nom"
+                "label" => "Votre nom",  
+                "attr"=>[
+                    "placeholder"=>"Nom",
+                    "class"=>"form-control"
+                ]
 
             ])
             ->add('firstName', TextType::class, [
@@ -27,7 +31,10 @@ class RegisterType extends AbstractType
                 "constraints" => new NotBlank([
                     "message" => "Mettre un prénom"
                 ]),
-                "label" => "Votre prénom"
+                "label" => "Votre prénom",  
+                "attr"=>[
+                    "placeholder"=>"Prénom"
+                ]
 
             ])
             ->add('address', TextType::class, [
@@ -35,7 +42,10 @@ class RegisterType extends AbstractType
                 "constraints" => new NotBlank([
                     "message" => "Mettre une adresse"
                 ]),
-                "label" => "Votre adresse"
+                "label" => "Votre adresse",  
+                "attr"=>[
+                    "placeholder"=>"Adresse"
+                ]
 
             ])
             ->add('city', TextType::class, [
@@ -43,7 +53,10 @@ class RegisterType extends AbstractType
                 "constraints" => new NotBlank([
                     "message" => "Mettre une ville"
                 ]),
-                "label" => "Votre ville"
+                "label" => "Votre ville",  
+                "attr"=>[
+                    "placeholder"=>"Ville"
+                ]
 
             ])
             ->add('postalCode', TextType::class, [
@@ -51,7 +64,10 @@ class RegisterType extends AbstractType
                 "constraints" => new NotBlank([
                     "message" => "Mettre un code postale"
                 ]),
-                "label" => "Votre code postale"
+                "label" => "Votre code postale",  
+                "attr"=>[
+                    "placeholder"=>"CP"
+                ]
 
             ])
 
@@ -61,7 +77,10 @@ class RegisterType extends AbstractType
                 "constraints" => new NotBlank([
                     "message" => "Mettre un numéro de téléphone"
                 ]),
-                "label" => "Votre numéro de téléphone"
+                "label" => "Votre numéro de téléphone",  
+                "attr"=>[
+                    "placeholder"=>"Téléphone"
+                ]
 
             ])
             ->add("user", UserType::class,["action"=>"register"])
