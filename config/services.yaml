@@ -6,6 +6,7 @@
 parameters:
     documents_directory: '%kernel.project_dir%/var/documents/'
     images_directory: '%kernel.project_dir%/public/images/'
+    mail_from: 'mail@mail.com'
 services:
     # default configuration for services in *this* file
     _defaults:

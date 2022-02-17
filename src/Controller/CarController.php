@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -200,8 +202,12 @@ class CarController extends AbstractController
 
     /**
      * @Route("/{id}/location", name="rental_car")
+     * @param EntityManagerInterface $entityManager
+     * @param Car $car
+     * @param MailerInterface $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|void
      */
-    public function rentalCar(EntityManagerInterface $entityManager, Car $car)
+    public function rentalCar(EntityManagerInterface $entityManager, Car $car, MailerInterface $mailer)
     {
         $rental = new Rental();
         $rental->setCar($car);
@@ -216,5 +222,29 @@ class CarController extends AbstractController
         $car->setState(Car::STATE_RENTALE);
         $entityManager->persist($car);
         $entityManager->flush();
+
+        $email = (new Email())
+        ->from($this->getParameter('mail_from'))
+            ->to($this->getUser()->getEmail())
+            ->subject("Confirmation de la location")
+            ->html($this->render("mail/rental.customer.html.twig",[
+                'userName'=>$this->getUser()->getUserIdentifier()
+            ])->getContent())
+            ;
+        $mailer->send($email);
+
+        $email = (new Email())
+            ->from($this->getParameter('mail_from'))
+            ->to($car->getCustomer()->getUser()->getEmail())
+            ->subject("Confirmation de la location")
+            ->html($this->render("mail/rental.car.customer.html.twig",[
+                'userName'=>$car->getCustomer()->getUser()->getUserIdentifier(),
+                'customerName'=>$this->getUser()->getUserIdentifier()
+            ])->getContent())
+        ;
+        $mailer->send($email);
+
+        $this->addFlash("success", "Validé, l'email à été bien envoyé.");
+        return $this->redirectToRoute('default');
     }
 }

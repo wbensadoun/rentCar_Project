@@ -31,7 +31,7 @@
                         {{ advert.prix }} €
                     </div>
                         <div class="row">
-                            <a href="#" class="nav-link">LOUER</a>
+                            <a href="{{ path('rental_car',{id:advert.car.id}) }}" class="nav-link">LOUER</a>
                         </div>
                 </div>
             </div>

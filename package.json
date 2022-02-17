@@ -25,6 +25,7 @@
         "font-awesome": "^4.7.0",
         "install": "^0.13.0",
         "jquery": "^3.4.1",
+        "maildev": "^1.1.0",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",
         "yarn": "^1.22.17"
