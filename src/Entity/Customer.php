@@ -270,12 +270,12 @@ class Customer
         return $this;
     }
 
-    public function getPhotoProfile(): ?string
+    public function getPhotoProfile()
     {
         return $this->PhotoProfile;
     }
 
-    public function setPhotoProfile(?string $PhotoProfile): self
+    public function setPhotoProfile($PhotoProfile)
     {
         $this->PhotoProfile = $PhotoProfile;
 

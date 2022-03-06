@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Car;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,7 +41,10 @@ class CarType extends AbstractType
                 "label" => "plaque d'immatriculation"
 
             ])
-            ->add('startDate')
+            ->add('startDate', DateType::class,[
+                "widget"=> "single_text",
+                "html5"=> true
+            ])
             ->add('model', TextType::class,[
                 "required" => false,
                 "constraints" => new NotBlank([

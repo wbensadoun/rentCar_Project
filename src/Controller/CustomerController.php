@@ -98,7 +98,16 @@ class CustomerController extends AbstractController
                 return $this->redirectToRoute("customer_profiler");// Doit être rediriger sur la page dashboard
         }
         return $this->render("profile/form.html.twig", [
-            "form"=>$form->createView()
+            "form"=>$form->createView(),
+            "customer"=>$this->getUser()->getCustomer()
+
         ]);
+    }
+    /**
+     * @return string
+     */
+    private function giveUniqName(): string
+    {
+        return md5(uniqid()); //ça permet de créer un nom unique
     }
 }

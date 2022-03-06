@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Customer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -62,6 +63,24 @@ class ProfileType extends AbstractType
                     "message" => "Mettre un numéro de téléphone"
                 ]),
                 "label" => "Votre numéro de téléphone"
+
+            ])
+            ->add('licencePicture', FileType::class, [
+                'label' => 'Permis de conduire ',
+                'data_class' => null, //Sur un champ de type file on doit obligatoirement  avoir data_class -> null
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+            ])
+            ->add('photoProfile', FileType::class, [
+                'label' => 'Photo de profile',
+                'data_class' => null, //Sur un champ de type file on doit obligatoirement  avoir data_class -> null
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
 
             ])
             ->add("user", UserType::class,["action"=>"profile"])

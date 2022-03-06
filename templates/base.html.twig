@@ -25,6 +25,9 @@
                 <a class="nav-link" id="acceuil" href="{{path('default')}}" value="">Accueil</a>
             </li>
 
+            <li class="nav-item active home ">
+                <a class="nav-link" id="acceuil" href="{{path('public_list')}}" value="">Annonces</a>
+            </li>
             {# SI CONNECTER NE PAS AFFICHER #}
             {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
             <li class="nav-item active home ">
@@ -37,28 +40,36 @@
             </li>
             {% endif %}
 
+            {#SI NON CONNECTER NE PAS AFFICHER#}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                <li class="nav-item active home">
+                    <a class="nav-link" id="addCar" href="{{path('create_car')}}" >Ajouter une voiture</a>
+                </li>
+
+                {#SI NON CONNECTER NE PAS AFFICHER#}
+                <li class="nav-item active home ">
+                    <a class="nav-link" id="addAdvert" href="{{path('create_advert')}}" value="">Créer une annonce</a>
+                </li>
+
+                {#SI NON CONNECTER NE PAS AFFICHER#}
+                <li class="nav-item active home ">
+                    <a class="nav-link" id="advertList" href="{{path('list_adverts')}}" value="">Mes annonces</a>
+                </li>
+            {% endif %}
+
             {% if  is_granted("IS_AUTHENTICATED_FULLY") %}
             <li class="nav-item active home ">
                     <a class="nav-link" href="{{ path('app_logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Déconnexion </a>
             </li>
             {% endif %}
 
-            {#SI NON CONNECTER NE PAS AFFICHER#}
-            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-            <li class="nav-item active home">
-                <a class="nav-link" id="addCar" href="{{path('create_car')}}" >Ajouter une voiture</a>
-            </li>
-            {#SI NON CONNECTER NE PAS AFFICHER#}
-            <li class="nav-item active home ">
-                <a class="nav-link" id="addAdvert" href="{{path('create_advert')}}" value="">Créer une annonce</a>
-            </li>
-            {% endif %}
+
         </ul>
 
         <form action="{{ path('public_search') }}" class="form-inline mx-auto">
             <input type="text" class="research"  required name="search" placeholder="Trouver une voiture"/>
 
-            <button type="submit" class="search btn">BUTTON</button>
+            <button type="submit" class="search btn">Rechercher</button>
 
         </form>
         <p id="versionApp"> Rental Car Project</p>
