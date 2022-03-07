@@ -24,7 +24,7 @@
         "bootstrap": "^4.5.0",
         "font-awesome": "^4.7.0",
         "install": "^0.13.0",
-        "jquery": "^3.4.1",
+        "jquery": "^3.6.0",
         "maildev": "^1.1.0",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",

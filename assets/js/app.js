@@ -5,5 +5,13 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 import 'bootstrap';
+const $=require('jquery');
 require('@fortawesome/fontawesome-free');
 
+$(function (){
+  $('#load-more').on("click",function (){
+
+  })
+
+
+})

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mime\Email;
 use App\Entity\Advert;
 use App\Repository\AdvertRepository;
@@ -21,10 +22,25 @@ class PublicAdvertController extends AbstractController
      */
     public function public_list(EntityManagerInterface $em)
     {
-      $publicAdverts = $em->getRepository(Advert::class)->findByLastAdverts();
+      $publicAdverts = $em->getRepository(Advert::class)->findByLastAdverts(10);
       return $this->render("public_advert/index.html.twig",[
           'public_adverts'=> $publicAdverts
       ]);
+    }
+
+    /**
+     * @Route("/load-more/{offset}", name="more_advert")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param int $offset
+     */
+    public function loadMoreAdvert(EntityManagerInterface $entityManager, Request $request, int $offset)
+    {
+        $publicAdverts = $entityManager->getRepository(Advert::class)->findByLastAdverts(10, $offset);
+        $render = $this->render("public_advert/advert.html.twig",[
+            'public_adverts'=>$publicAdverts
+        ])->getContent();
+        return new JsonResponse($render);
     }
 
     /**

@@ -19,10 +19,11 @@ class AdvertRepository extends ServiceEntityRepository
         parent::__construct($registry, Advert::class);
     }
 
-    public function findByLastAdverts(int $nbAdvert = 3)
+    public function findByLastAdverts(int $nbAdvert = 3, int $offset = 1)
     {
         return $this->createQueryBuilder("a")
             ->orderBy('a.createDate', 'DESC')
+            ->setFirstResult($offset)
             ->setMaxResults($nbAdvert)
             ->getQuery()
             ->getResult()

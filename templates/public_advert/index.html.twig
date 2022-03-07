@@ -3,24 +3,13 @@
 {% block title %}Hello PublicAdvertController!{% endblock %}
 
 {% block body %}
+        <div id="advert-list">
+                    {{ include("public_advert/advert.html.twig", { public_adverts:public_adverts }) }}
+        </div>
+        <div class="row text-center justify-content-center pt-2">
+            <button type="button" id="load-more" class="btn btn-dark"> Voir Plus
+                <i class="fa fa-spin fa-spinner"> </i>
+            </button>
+        </div>
 
-    {% for public_advert in public_adverts %}
-
-            
-                    <div class="card mt-5">
-                        <div class="row">
-                            <div class="col-4">
-                                    {% if public_advert.car.picture1 is not empty %}
-					                <img src="{{ asset(images_directory~public_advert.car.picture1) }}" width="100"/>
-					                {% endif %}
-                            </div>
-
-                            <div class="col-8" id="">
-                               <h2> <a href="{{ path('public_detail',{id:public_advert.id}) }}"> {{public_advert.titre}} </a></h2>
-                               <p> {{public_advert.description | raw}} </p>
-                               <p> {{ public_advert.createDate | date("d/m/Y") }} </p>
-                            </div>
-                        </div>
-                    </div>
-    {% endfor %}
 {% endblock %}
