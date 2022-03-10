@@ -10,8 +10,29 @@ require('@fortawesome/fontawesome-free');
 
 $(function (){
   $('#load-more').on("click",function (){
+          const advertRoute = $("#advert-route").val();
+          let offset = $(".public-advert").length + 1;
+
+          let url =  advertRoute.replace(/(__OFFSET__)/g,offset);
+
+      $.ajax({
+          url: url,
+          type: "get",
+          dataType : "json",
+          error: function(request, error){
+              console.log(error);
+              },
+          success: function(data){
+              if(data === ""){
+                  $("#load-more").attr('disabled','disabled');
+              }else{
+                  $('#advert-list').append(data);
+              }
+
+
+          }
+      })
 
   })
-
 
 })
