@@ -73,7 +73,7 @@ class AdvertController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager)
     {
-        $adverts = $entityManager->getRepository(Advert::class)->findBy(["state" => Advert::STATE_ENABLE]);
+        $adverts = $entityManager->getRepository(Advert::class)->findMyLastAdverts(999,1, $this->getUser());
         //On recherche tout les véhicules de l'objet "advert" dont le champ state est = à la const STATE_ENABLE
 
         return $this->render("advert/index.html.twig", [

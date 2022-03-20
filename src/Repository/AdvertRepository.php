@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Advert;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,7 +19,21 @@ class AdvertRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Advert::class);
     }
-
+    public function findMyLastAdverts(int $nbAdvert = 3, int $offset = 1, User $user)
+    {
+        return $this->createQueryBuilder("a")
+            ->join('a.Car', 'car')
+            ->join("car.customer", "customer")
+            ->join("customer.user","user")
+            ->where("user=:user")
+            ->setParameter(':user', $user)
+            ->orderBy('a.createDate', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($nbAdvert)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     public function findByLastAdverts(int $nbAdvert = 3, int $offset = 1)
     {
         return $this->createQueryBuilder("a")

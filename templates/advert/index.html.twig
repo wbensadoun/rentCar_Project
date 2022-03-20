@@ -4,7 +4,12 @@
 {% endblock %}
 
 {% block body %}
+	<div class="row">
+		<div class="col-offset-4 col-6">
+			<a class="btn btn-success" href="{{ path('create_advert') }}">Rajouter une annonce</a>
+		</div>
 
+	</div>
 	<table class="table">
 		<thead>
 
@@ -39,9 +44,5 @@
 
 
 	</table>
-	<div class="row">
-		<div class="col-offset-4 col-6">
-			<a class="btn btn-success" href="{{ path('create_advert') }}">Rajouter une annonce</a>
-		</div>
-	</div>
+
 {% endblock %}
