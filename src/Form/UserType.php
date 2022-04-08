@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -20,15 +21,26 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 "required"=> true,
-                "label"=>"Mettez une adresse mail",
+                "constraints" => new NotBlank([
+                    "message" => "Mettre un numéro de téléphone"
+                ]),
+                "label"=>"Mettre une adresse mail",
                 "attr"=>[
-                    "placeholder"=>"Email"
+                    "placeholder"=>"Email",
+                    "class"=>"form-control"
                 ]
             ])
 
             ->add('userName', TextType::class, [
                 "required"=>true,
-               
+                "constraints" => new NotBlank([
+                    "message" => "Mettre un numéro de téléphone"
+                ]),
+                "label"=>"Choisissez un nom d'utilisateur",
+                "attr"=>[
+                    "placeholder"=>"Nom d'utilisateur",
+                    "class"=>"form-control"
+                ]
             ])
         ;
         if($action=="profile"){
@@ -36,15 +48,15 @@ class UserType extends AbstractType
                 "required"=>false,
                 "mapped"=>false,
                 "first_options"=>[
-                    
                     "attr"=>[
-                        "placeholder"=>"Mot de passe"
+                        "placeholder"=>"Mot de passe",
+                        "class"=>"form-control"
                     ]
                 ],
                 "second_options"=>[
-                   
                     "attr"=>[
-                        "placeholder"=>"Confirmez le mot de passe"
+                        "placeholder"=>"Confirmez le mot de passe",
+                        "class"=>"form-control"
                     ]
                 ],
                 "invalid_message"=>"Les mots de passe ne correspondent pas",
@@ -52,14 +64,23 @@ class UserType extends AbstractType
             ]);
 
         }elseif($action == "register"){
+
             $builder ->add("confirmPassword", RepeatedType::class,  [
                     "required"=>true,
                     "mapped"=>false,
                     "first_options"=>[
-                        "label"=>"Mot de passe"
+                        "label"=>"Mot de passe",
+                        "attr"=>[
+                            "placeholder"=>"Mot de passe",
+                            "class"=>"form-control"
+                        ]
                     ],
                     "second_options"=>[
-                        "label"=>"Confirmez le mot de passe"
+                        "label"=>"Confirmez le mot de passe",
+                        "attr"=>[
+                            "placeholder"=>"Confirmez le mot de passe",
+                            "class"=>"form-control"
+                        ]
                     ],
                     "invalid_message"=>"Les mots de passe ne correspondent pas",
                     "type"=>PasswordType::class

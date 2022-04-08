@@ -33,7 +33,8 @@ class RegisterType extends AbstractType
                 ]),
                 "label" => "Votre prénom",  
                 "attr"=>[
-                    "placeholder"=>"Prénom"
+                    "placeholder"=>"Prénom",
+                    "class"=>"form-control"
                 ]
 
             ])
@@ -44,7 +45,8 @@ class RegisterType extends AbstractType
                 ]),
                 "label" => "Votre adresse",  
                 "attr"=>[
-                    "placeholder"=>"Adresse"
+                    "placeholder"=>"Adresse",
+                    "class"=>"form-control"
                 ]
 
             ])
@@ -55,7 +57,8 @@ class RegisterType extends AbstractType
                 ]),
                 "label" => "Votre ville",  
                 "attr"=>[
-                    "placeholder"=>"Ville"
+                    "placeholder"=>"Ville",
+                    "class"=>"form-control"
                 ]
 
             ])
@@ -66,7 +69,8 @@ class RegisterType extends AbstractType
                 ]),
                 "label" => "Votre code postale",  
                 "attr"=>[
-                    "placeholder"=>"CP"
+                    "placeholder"=>"CP",
+                    "class"=>"form-control"
                 ]
 
             ])
@@ -79,7 +83,8 @@ class RegisterType extends AbstractType
                 ]),
                 "label" => "Votre numéro de téléphone",  
                 "attr"=>[
-                    "placeholder"=>"Téléphone"
+                    "placeholder"=>"Téléphone",
+                    "class"=>"form-control"
                 ]
 
             ])
