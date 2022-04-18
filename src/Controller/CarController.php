@@ -228,7 +228,8 @@ class CarController extends AbstractController
             ->to($this->getUser()->getEmail())
             ->subject("Confirmation de la location")
             ->html($this->render("mail/rental.customer.html.twig",[
-                'userName'=>$this->getUser()->getUserIdentifier()
+                'userName'=>$this->getUser()->getUserIdentifier(),
+                'loueurName'=>$car->getCustomer()->getUser()->getUserIdentifier()
             ])->getContent())
             ;
         $mailer->send($email);
